@@ -10,10 +10,6 @@ from data.data import BAPredDataset
 from model.model import PredictionPKD
 
 
-os.environ['PATH'] = '/usr/local/cuda-11.7/bin:' + os.environ['PATH']
-os.environ['LD_LIBRARY_PATH'] = '/usr/local/cuda-11.7/lib64:' + os.environ.get('LD_LIBRARY_PATH', '')
-
-
 def inference(model, loader, output, device='cpu'):
     model.eval()
 
