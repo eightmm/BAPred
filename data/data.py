@@ -9,9 +9,6 @@ from dgl.data import DGLDataset
 from .atom_feature import *
 
 
-def get_ligand_coordinate(mol):
-    return mol.GetConformers()[0].GetPositions()
-
 def calculate_pair_distance(arr1, arr2):
     return torch.linalg.norm( arr1[:, None, :] - arr2[None, :, :], axis = -1)
 
