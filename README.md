@@ -6,7 +6,7 @@ This repository contains code for predicting the binding affinity between protei
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/BAPred.git
+git clone https://github.com/eightmm/BAPred.git
 cd BAPred
 ```
 
