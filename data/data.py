@@ -84,13 +84,14 @@ class BAPredDataset(DGLDataset):
         lmol = self.lig_mols[idx]
         pmol = self.get_pocket_with_ligand_in_protein( self.prot_atom_line, self.prot_atom_coord, lmol )
         name = self.lig_names[idx]
-        try:
+        if lmol == None or pmol == None:
+#        try:i
             gl = self.mol_to_graph( lmol )
             gp = self.mol_to_graph( pmol )
             gc = self.complex_to_graph( pmol, lmol )
             error = 0
-
-        except Exception as E:
+        else:
+#        except Exception as E:
             gp = self.prot_dummy_graph( num_nodes=1000)
             gl = self.lig_dummy_graph( num_nodes=2 )
             gc = self.comp_dummy_graph( num_nodes=1002 )
