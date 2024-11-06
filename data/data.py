@@ -90,9 +90,9 @@ class BAPredDataset(DGLDataset):
             error = 0
 
         except Exception as E:
-            gp = self.mol_to_graph( pmol )
+            gp = self.prot_dummy_graph( num_nodes=1000)
             gl = self.lig_dummy_graph( num_nodes=2 )
-            gc = self.complex_to_graph( pmol, lmol )
+            gc = self.comp_dummy_graph( num_nodes=1002 )
             error = 1
 
         return gp, gl, gc, error, idx, name
@@ -110,6 +110,26 @@ class BAPredDataset(DGLDataset):
         gl.edata['feats'] = torch.zeros((10, 13)).float()
         return gl
 
+    def prot_dummy_graph(self, num_nodes):
+        src = torch.randint(0, num_nodes, (10,))
+        dst = torch.randint(0, num_nodes, (10,))
+        gp = dgl.graph( (src, dst), num_nodes=num_nodes)
+        gp.ndata['feats'] = torch.zeros((num_nodes, 57)).float()
+        gp.ndata['pos_enc'] = torch.zeros((num_nodes, 20)).float()
+        gp.ndata['coord'] = torch.randint(0, 100, (num_nodes, 3)).float()
+        gp.edata['feats'] = torch.zeros((10, 13)).float()
+        return gp
+
+    def comp_dummy_graph( self, num_nodes):
+        src = torch.randint(0, num_nodes, (10,))
+        dst = torch.randint(0, num_nodes, (10,))
+        gc = dgl.graph( (src, dst), num_nodes=num_nodes)
+        gc.ndata['coord'] = torch.randint(0, 100, (num_nodes, 3)).float()
+        gc.edata['feats'] = torch.zeros((10, 25)).float()
+        gc.edata['distance'] = torch.zeros((10, 1)).float()
+        return gc
+
+
     def get_protein_info( self, prot_pdb ):
         prot_atom_line = []
         prot_atom_coord = []
@@ -125,7 +145,6 @@ class BAPredDataset(DGLDataset):
         prot_atom_coord = torch.tensor( prot_atom_coord ).float()
 
         pl_distance = torch.cdist( prot_atom_coord, lig_atom_coord )
-
         select_index = torch.where( pl_distance < 8 )[0]
         select_atom = [ line for idx, line in enumerate( prot_atom_line ) if idx in select_index ]
 
@@ -133,11 +152,11 @@ class BAPredDataset(DGLDataset):
         for idx, line in enumerate(prot_atom_line):
             if idx in select_index:
                 select_residue[line[21]].add( int(line[22:26]) )
-
         total_lines = """"""
         for idx, line in enumerate(prot_atom_line):
             if int( line[22:26] ) in select_residue[ line[21] ]:
                 total_lines += line
+        
         mol = Chem.MolFromPDBBlock( total_lines, sanitize=False )
         #Chem.AssignAtomChiralTagsFromStructure(mol)
 

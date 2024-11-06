@@ -5,8 +5,8 @@ from dgl.dataloading import GraphDataLoader
 from data.data import BAPredDataset
 from model.model import PredictionPKD
 
-def inference(protein_pdb, ligand_sdf, output, batch_size, model_path, device='cpu'):
-    dataset = BAPredDataset(protein_pdb=protein_pdb, ligand_sdf=ligand_sdf)
+def inference(protein_pdb, ligand_file, output, batch_size, model_path, device='cpu'):
+    dataset = BAPredDataset(protein_pdb=protein_pdb, ligand_file=ligand_file)
     loader = GraphDataLoader(dataset, batch_size=batch_size, shuffle=False, pin_memory=True)
 
     model = PredictionPKD(57, 256, 13, 25, 20, 6, 0.2).to(device)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-r', '--protein_pdb', default='./example/1KLT_rec.pdb', help='receptor .pdb')
-    parser.add_argument('-l', '--ligand_sdf', default='./example/chk.sdf', help='ligand .sdf')
+    parser.add_argument('-l', '--ligand_file', default='./example/chk.sdf', help='ligand .sdf/.mol2/.txt')
     parser.add_argument('-o', '--output', default='./example/result.csv', help='result output file')
 
     parser.add_argument('--batch_size', default=128, type=int, help='batch size')
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     inference(
         protein_pdb=args.protein_pdb,
-        ligand_sdf=args.ligand_sdf,
+        ligand_file=args.ligand_file,
         output=args.output,
         batch_size=args.batch_size,
         model_path=args.model_path,
