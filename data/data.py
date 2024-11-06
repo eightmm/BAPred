@@ -81,17 +81,15 @@ class BAPredDataset(DGLDataset):
         self.prot_atom_line, self.prot_atom_coord = self.get_protein_info( protein_pdb )
 
     def __getitem__(self, idx):
-        lmol = self.lig_mols[idx]
-        pmol = self.get_pocket_with_ligand_in_protein( self.prot_atom_line, self.prot_atom_coord, lmol )
         name = self.lig_names[idx]
-        if lmol == None or pmol == None:
-#        try:i
+        if self.err_tags[idx] == 0:
+            lmol = self.lig_mols[idx]
+            pmol = self.get_pocket_with_ligand_in_protein( self.prot_atom_line, self.prot_atom_coord, lmol )
             gl = self.mol_to_graph( lmol )
             gp = self.mol_to_graph( pmol )
             gc = self.complex_to_graph( pmol, lmol )
             error = 0
         else:
-#        except Exception as E:
             gp = self.prot_dummy_graph( num_nodes=1000)
             gl = self.lig_dummy_graph( num_nodes=2 )
             gc = self.comp_dummy_graph( num_nodes=1002 )
