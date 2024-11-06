@@ -36,6 +36,7 @@ def process_ligand_file(file_path):
                 ligand_name = f"{base_name}_{idx}"
             ligand_names.append(ligand_name)
         else:
+            ligands.append(None)
             err_tag.append(1)
             ligand_names.append(f"{base_name}_{idx}")
 
