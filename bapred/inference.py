@@ -2,8 +2,8 @@ import os, random, dgl, torch
 import pandas as pd
 from tqdm import tqdm
 from dgl.dataloading import GraphDataLoader
-from data.data import BAPredDataset
-from model.model import PredictionPKD
+from bapred.data.data import BAPredDataset
+from bapred.model.model import PredictionPKD
 
 def inference(protein_pdb, ligand_file, output, batch_size, model_path, device='cpu'):
     dataset = BAPredDataset(protein_pdb=protein_pdb, ligand_file=ligand_file)
