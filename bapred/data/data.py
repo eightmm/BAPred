@@ -7,7 +7,7 @@ RDLogger.DisableLog('rdApp.*')
 
 from dgl.data import DGLDataset
 
-from .atom_feature import *
+from bapred.data.atom_feature import *
 
 def process_ligand_file(file_path):
     extension = os.path.splitext(file_path)[-1].lower()
