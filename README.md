@@ -8,14 +8,16 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.4.0-orange.svg)](https://pytorch.org/)
 [![DGL](https://img.shields.io/badge/DGL-2.4.0-green.svg)](https://www.dgl.ai/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![CASP16](https://img.shields.io/badge/CASP16-2nd%20Place-gold.svg)](https://predictioncenter.org/casp16/)
 [![GitHub stars](https://img.shields.io/github/stars/eightmm/BAPred.svg?style=social&label=Star)](https://github.com/eightmm/BAPred)
 
-*State-of-the-art binding affinity prediction for drug discovery and molecular design*
+*High-performance protein-ligand binding affinity prediction model - 2nd place in CASP16 ligand affinity challenge*
 
 </div>
 
 ## 🌟 Features
 
+- 🏆 **CASP16 Winner**: 2nd place in the prestigious CASP16 ligand affinity prediction challenge
 - 🎯 **High Accuracy**: Graph Neural Network-based architecture for precise binding affinity prediction
 - ⚡ **Fast Inference**: Optimized for both CPU and GPU execution
 - 🔬 **Research Ready**: Pre-trained models ready for immediate use
@@ -151,10 +153,15 @@ BAPred leverages cutting-edge graph neural network architectures:
 
 ## 📊 Performance
 
-| Dataset | Ligands | Processing Time | Accuracy |
-|---------|---------|----------------|----------|
+| Dataset | Ligands | Processing Time | Performance |
+|---------|---------|----------------|-------------|
+| **CASP16** | Challenge dataset | Competition | **🥈 2nd Place** |
 | Example | 500 | ~3 minutes | High precision |
 | Custom | Variable | Scales linearly | Research-grade |
+
+### 🏆 CASP16 Achievement
+
+BAPred achieved **2nd place** in the CASP16 (Critical Assessment of protein Structure Prediction) ligand affinity prediction challenge, demonstrating its state-of-the-art performance in real-world protein-ligand binding affinity prediction tasks.
 
 ## 🤝 Contributing
 
