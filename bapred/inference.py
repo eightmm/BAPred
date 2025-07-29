@@ -20,7 +20,7 @@ def inference(
 
     model = PredictionPKD(57, 256, 13, 25, 20, 6, 0.2).to(device)
     weight_path = f'{model_path}/BAPred.pth'
-    model.load_state_dict(torch.load(weight_path, weights_only=True)['model_state_dict'])
+    model.load_state_dict(torch.load(weight_path, map_location=device, weights_only=False)['model_state_dict'])
     model.eval()
 
     results = {
