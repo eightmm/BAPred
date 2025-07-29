@@ -4,7 +4,7 @@
 
 **Protein-Ligand Binding Affinity Prediction using Graph Neural Networks**
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.4.0-orange.svg)](https://pytorch.org/)
 [![DGL](https://img.shields.io/badge/DGL-2.4.0-green.svg)](https://www.dgl.ai/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
