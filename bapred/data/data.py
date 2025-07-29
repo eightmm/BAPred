@@ -189,7 +189,7 @@ class BAPredDataset(DGLDataset):
     def __init__(self, protein_pdb, ligand_file, train=True):
         super(BAPredDataset, self).__init__(name='Protein Ligand Binding Affinity prediction')
 
-        self.lig_mols, self.err_tags, self.lig_names = load_ligands(ligand_file)
+        self.lig_mols, self.err_tags, self.lig_names, _ = load_ligands(ligand_file)
 
         self.prot_atom_line, self.prot_atom_coord = self.get_protein_info( protein_pdb )
 
