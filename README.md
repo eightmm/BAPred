@@ -17,11 +17,9 @@
 
 ## 🌟 Features
 
-- 🏆 **CASP16 Winner**: 2nd place in the prestigious CASP16 ligand affinity prediction challenge
+- 🏆 **CASP16**: 2nd place in the prestigious CASP16 ligand affinity prediction challenge
 - 🎯 **High Accuracy**: Graph Neural Network-based architecture for precise binding affinity prediction
-- ⚡ **Fast Inference**: Optimized for both CPU and GPU execution
 - 🔬 **Research Ready**: Pre-trained models ready for immediate use
-- 📊 **Multiple Formats**: Support for SDF, MOL2, and PDB file formats
 - 🛠️ **Easy Integration**: Simple Python API and command-line interface
 - 📈 **Scalable**: Batch processing for high-throughput screening
 
