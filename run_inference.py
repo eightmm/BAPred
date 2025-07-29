@@ -39,8 +39,6 @@ Examples:
     
     parser.add_argument('--batch_size', default=128, type=int,
                        help='Batch size for inference (default: 128)')
-    parser.add_argument('--ncpu', default=4, type=int,
-                       help='Number of CPU workers for data loading (default: 4)')
     parser.add_argument('--device', type=str, default='cuda',
                        choices=['cpu', 'cuda'],
                        help='Device to use: cpu or cuda (default: cuda)')
@@ -78,7 +76,6 @@ Examples:
     logger.info(f"Input ligands: {args.ligand_file}")
     logger.info(f"Output file: {args.output}")
     logger.info(f"Batch size: {args.batch_size}")
-    logger.info(f"CPU workers: {args.ncpu}")
     logger.info(f"Device: {device}")
     logger.info("-" * 50)
     
@@ -88,7 +85,6 @@ Examples:
             ligand_file=args.ligand_file,
             output=args.output,
             batch_size=args.batch_size,
-            ncpu=args.ncpu,
             model_path=args.model_path,
             device=device
         )

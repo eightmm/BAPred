@@ -11,12 +11,13 @@ def inference(
     ligand_file: str, 
     output: str, 
     batch_size: int, 
-    ncpu: int = 4, 
+ 
     model_path: str = './weight', 
     device: Union[str, torch.device] = 'cpu'
 ) -> None:
     dataset = BAPredDataset(protein_pdb=protein_pdb, ligand_file=ligand_file)
-    loader = GraphDataLoader(dataset, batch_size=batch_size, shuffle=False, pin_memory=True, num_workers=ncpu)
+    loader = GraphDataLoader(dataset, batch_size=batch_size, shuffle=False, 
+                           pin_memory=(device != 'cpu'), num_workers=0)
 
     model = PredictionPKD(57, 256, 13, 25, 20, 6, 0.2).to(device)
     weight_path = f'{model_path}/BAPred.pth'
