@@ -4,9 +4,10 @@
 
 **Protein-Ligand Binding Affinity Prediction using Graph Neural Networks**
 
-[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.4.0-orange.svg)](https://pytorch.org/)
-[![DGL](https://img.shields.io/badge/DGL-2.4.0-green.svg)](https://www.dgl.ai/)
+[![PyPI version](https://badge.fury.io/py/bapred.svg)](https://badge.fury.io/py/bapred)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-orange.svg)](https://pytorch.org/)
+[![DGL](https://img.shields.io/badge/DGL-2.0+-green.svg)](https://www.dgl.ai/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![CASP16](https://img.shields.io/badge/CASP16-2nd%20Place-gold.svg)](https://predictioncenter.org/casp16/)
 [![GitHub stars](https://img.shields.io/github/stars/eightmm/BAPred.svg?style=social&label=Star)](https://github.com/eightmm/BAPred)
@@ -30,24 +31,35 @@
 Choose your preferred installation method:
 
 <details>
-<summary><b>🐍 Option 1: Using Conda (Recommended)</b></summary>
+<summary><b>📦 Option 1: Install from PyPI (Simplest)</b></summary>
+
+```bash
+pip install bapred
+```
+
+</details>
+
+<details>
+<summary><b>🐍 Option 2: Using Conda (Recommended for Development)</b></summary>
 
 ```bash
 git clone https://github.com/eightmm/BAPred.git
 cd BAPred
 conda env create -f env.yaml
 conda activate BAPred
+pip install -e .
 ```
 
 </details>
 
 <details>
-<summary><b>📦 Option 2: Using pip</b></summary>
+<summary><b>🔧 Option 3: From Source</b></summary>
 
 ```bash
 git clone https://github.com/eightmm/BAPred.git
 cd BAPred
 pip install -r requirements.txt
+pip install -e .
 ```
 
 </details>
@@ -76,6 +88,9 @@ python run_inference.py -r protein.pdb -l ligands.sdf -o results.csv --device cp
 # Custom batch size for memory optimization
 python run_inference.py -r protein.pdb -l ligands.sdf -o results.csv --batch_size 64
 
+# Limit CPU workers for data loading
+python run_inference.py -r protein.pdb -l ligands.sdf -o results.csv --ncpu 8
+
 # Specify custom model path
 python run_inference.py -r protein.pdb -l ligands.sdf -o results.csv --model_path /path/to/model
 ```
@@ -90,6 +105,7 @@ inference(
     ligand_file="example/ligands.sdf",
     output="results.csv",
     batch_size=128,
+    ncpu=4,
     model_path="bapred/weight",
     device="cuda"
 )

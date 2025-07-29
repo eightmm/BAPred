@@ -12,10 +12,13 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 
 from bapred.inference import inference
+from bapred.logger import setup_logger
 import argparse
 import torch
 
 def main():
+    # Setup logger
+    logger = setup_logger("bapred.cli")
     parser = argparse.ArgumentParser(
         description='BAPred: Protein-ligand Binding Affinity Prediction',
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -36,6 +39,8 @@ Examples:
     
     parser.add_argument('--batch_size', default=128, type=int,
                        help='Batch size for inference (default: 128)')
+    parser.add_argument('--ncpu', default=4, type=int,
+                       help='Number of CPU workers for data loading (default: 4)')
     parser.add_argument('--device', type=str, default='cuda',
                        choices=['cpu', 'cuda'],
                        help='Device to use: cpu or cuda (default: cuda)')
@@ -46,35 +51,36 @@ Examples:
     
     # Validate input files
     if not os.path.exists(args.protein_pdb):
-        print(f"Error: Protein PDB file not found: {args.protein_pdb}")
+        logger.error(f"Protein PDB file not found: {args.protein_pdb}")
         sys.exit(1)
     
     if not os.path.exists(args.ligand_file):
-        print(f"Error: Ligand file not found: {args.ligand_file}")
+        logger.error(f"Ligand file not found: {args.ligand_file}")
         sys.exit(1)
     
     if not os.path.exists(f"{args.model_path}/BAPred.pth"):
-        print(f"Error: Model weights not found: {args.model_path}/BAPred.pth")
+        logger.error(f"Model weights not found: {args.model_path}/BAPred.pth")
         sys.exit(1)
     
     # Setup device
     if args.device == 'cuda':
         if torch.cuda.is_available():
             device = 'cuda'
-            print(f"Using GPU: {torch.cuda.get_device_name(0)}")
+            logger.info(f"Using GPU: {torch.cuda.get_device_name(0)}")
         else:
-            print("CUDA not available, falling back to CPU")
+            logger.warning("CUDA not available, falling back to CPU")
             device = 'cpu'
     else:
         device = 'cpu'
-        print("Using CPU")
+        logger.info("Using CPU")
     
-    print(f"Input protein: {args.protein_pdb}")
-    print(f"Input ligands: {args.ligand_file}")
-    print(f"Output file: {args.output}")
-    print(f"Batch size: {args.batch_size}")
-    print(f"Device: {device}")
-    print("-" * 50)
+    logger.info(f"Input protein: {args.protein_pdb}")
+    logger.info(f"Input ligands: {args.ligand_file}")
+    logger.info(f"Output file: {args.output}")
+    logger.info(f"Batch size: {args.batch_size}")
+    logger.info(f"CPU workers: {args.ncpu}")
+    logger.info(f"Device: {device}")
+    logger.info("-" * 50)
     
     try:
         inference(
@@ -82,14 +88,15 @@ Examples:
             ligand_file=args.ligand_file,
             output=args.output,
             batch_size=args.batch_size,
+            ncpu=args.ncpu,
             model_path=args.model_path,
             device=device
         )
-        print(f"\nInference completed successfully!")
-        print(f"Results saved to: {args.output}")
+        logger.info(f"\nInference completed successfully!")
+        logger.info(f"Results saved to: {args.output}")
         
     except Exception as e:
-        print(f"Error during inference: {str(e)}")
+        logger.error(f"Error during inference: {str(e)}")
         sys.exit(1)
 
 if __name__ == "__main__":

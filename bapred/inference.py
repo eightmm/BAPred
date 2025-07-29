@@ -1,13 +1,22 @@
 import os, random, dgl, torch
 import pandas as pd
 from tqdm import tqdm
+from typing import Union
 from dgl.dataloading import GraphDataLoader
 from bapred.data.data import BAPredDataset
 from bapred.model.model import PredictionPKD
 
-def inference(protein_pdb, ligand_file, output, batch_size, model_path, device='cpu'):
+def inference(
+    protein_pdb: str, 
+    ligand_file: str, 
+    output: str, 
+    batch_size: int, 
+    ncpu: int = 4, 
+    model_path: str = './weight', 
+    device: Union[str, torch.device] = 'cpu'
+) -> None:
     dataset = BAPredDataset(protein_pdb=protein_pdb, ligand_file=ligand_file)
-    loader = GraphDataLoader(dataset, batch_size=batch_size, shuffle=False, pin_memory=True)
+    loader = GraphDataLoader(dataset, batch_size=batch_size, shuffle=False, pin_memory=True, num_workers=ncpu)
 
     model = PredictionPKD(57, 256, 13, 25, 20, 6, 0.2).to(device)
     weight_path = f'{model_path}/BAPred.pth'
@@ -72,6 +81,7 @@ if __name__ == "__main__":
         ligand_file=args.ligand_file,
         output=args.output,
         batch_size=args.batch_size,
+        ncpu=args.ncpu,
         model_path=args.model_path,
         device=args.device
     )
