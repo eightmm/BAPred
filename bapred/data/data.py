@@ -7,6 +7,9 @@ RDLogger.DisableLog('rdApp.*')
 
 from dgl.data import DGLDataset
 
+from meeko import PDBQTMolecule, RDKitMolCreate
+
+
 from bapred.data.atom_feature import *
 
 
