@@ -144,7 +144,7 @@ BAPred leverages cutting-edge graph neural network architectures:
 
 ## 🛠️ System Requirements
 
-- **Python**: 3.8 or higher
+- **Python**: 3.11 or higher
 - **Memory**: 4GB RAM minimum (8GB+ recommended)
 - **GPU**: CUDA-compatible GPU (optional, but recommended for speed)
 - **Storage**: 2GB free space
@@ -181,7 +181,7 @@ If you use BAPred in your research, please cite:
 ```bibtex
 @software{bapred2024,
   title={BAPred: Protein-Ligand Binding Affinity Prediction using Graph Neural Networks},
-  author={BAPred Team},
+  author={Jaemin Sim},
   year={2024},
   url={https://github.com/eightmm/BAPred}
 }
