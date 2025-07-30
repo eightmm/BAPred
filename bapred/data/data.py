@@ -14,16 +14,16 @@ from bapred.data.atom_feature import *
 
 
 
-def _process_dlg_pdbqt(file_path, is_dlg):
+def _process_dlg_pdbqt(file_path, is_dlg, only_cluster_leads=True):
     """Helper function to process .dlg and .pdbqt files."""
     name = os.path.basename(file_path).split('.')[0]
     pdbqt_mol = PDBQTMolecule.from_file(
         file_path, name=name, is_dlg=is_dlg, skip_typing=True
     )
     rdkit_mols = RDKitMolCreate.from_pdbqt_mol(
-        pdbqt_mol, only_cluster_leads=False, keep_flexres=False
+        pdbqt_mol, only_cluster_leads=only_cluster_leads, keep_flexres=False
     )
-    sdf_string, _ = RDKitMolCreate.write_sd_string(pdbqt_mol, only_cluster_leads=False)
+    sdf_string, _ = RDKitMolCreate.write_sd_string(pdbqt_mol, only_cluster_leads=only_cluster_leads)
 
     adg_score = []
     for line in sdf_string.split('\n'):
@@ -83,14 +83,14 @@ def _process_supplier(supplier, file_path):
     return ligands, err_tag, ligand_names, [float('nan')] * len(ligands)
 
 
-def process_ligand_file(file_path):
+def process_ligand_file(file_path, only_cluster_leads=True):
     """Processes a single ligand file (.dlg, .pdbqt, .sdf, .mol2)."""
     extension = os.path.splitext(file_path)[-1].lower()
 
     if extension == '.dlg':
-        return _process_dlg_pdbqt(file_path, is_dlg=True)
+        return _process_dlg_pdbqt(file_path, is_dlg=True, only_cluster_leads=only_cluster_leads)
     elif extension == '.pdbqt':
-        return _process_dlg_pdbqt(file_path, is_dlg=False)
+        return _process_dlg_pdbqt(file_path, is_dlg=False, only_cluster_leads=only_cluster_leads)
     elif extension == '.sdf':
         return _process_sdf(file_path)
     elif extension == '.mol2':
@@ -99,7 +99,7 @@ def process_ligand_file(file_path):
         raise ValueError(f"Unsupported file type: {extension}")
 
 
-def load_ligands(file_path):
+def load_ligands(file_path, only_cluster_leads=True):
     """Loads ligands from a file or a list of files."""
     file_extension = os.path.splitext(file_path)[-1].lower()
 
@@ -109,14 +109,14 @@ def load_ligands(file_path):
         lig_mols, err_tags, lig_names = [], [], []
         for line in lines:
             assert os.path.isfile(line), f"File not found: {line}"
-            file_ligands, file_err_tag, file_ligand_names, _ = process_ligand_file(line)
+            file_ligands, file_err_tag, file_ligand_names, _ = process_ligand_file(line, only_cluster_leads=only_cluster_leads)
             lig_mols.extend(file_ligands)
             err_tags.extend(file_err_tag)
             lig_names.extend(file_ligand_names)
         return lig_mols, err_tags, lig_names
 
     elif file_extension in ['.sdf', '.mol2', '.dlg', '.pdbqt']:
-        return process_ligand_file(file_path)
+        return process_ligand_file(file_path, only_cluster_leads=only_cluster_leads)
     else:
         raise ValueError("Unsupported file type. Use '.txt', '.sdf', '.mol2', '.dlg', or '.pdbqt'.")
 
@@ -185,10 +185,10 @@ def load_ligands(file_path):
 
 
 class BAPredDataset(DGLDataset):
-    def __init__(self, protein_pdb, ligand_file, train=True):
+    def __init__(self, protein_pdb, ligand_file, train=True, only_cluster_leads=True):
         super(BAPredDataset, self).__init__(name='Protein Ligand Binding Affinity prediction')
 
-        self.lig_mols, self.err_tags, self.lig_names, _ = load_ligands(ligand_file)
+        self.lig_mols, self.err_tags, self.lig_names, _ = load_ligands(ligand_file, only_cluster_leads=only_cluster_leads)
 
         self.prot_atom_line, self.prot_atom_coord = self.get_protein_info( protein_pdb )
 
