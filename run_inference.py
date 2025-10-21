@@ -37,7 +37,7 @@ Examples:
     parser.add_argument('-o', '--output', required=True,
                        help='Output CSV file path for results')
     
-    parser.add_argument('--batch_size', default=128, type=int,
+    parser.add_argument('--batch_size', default=16, type=int,
                        help='Batch size for inference (default: 128)')
     parser.add_argument('--device', type=str, default='cuda',
                        choices=['cpu', 'cuda'],

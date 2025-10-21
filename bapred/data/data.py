@@ -50,7 +50,7 @@ def _process_dlg_pdbqt(file_path, is_dlg, only_cluster_leads=True):
 
 def _process_sdf(file_path):
     """Helper function to process .sdf files."""
-    supplier = Chem.SDMolSupplier(file_path, sanitize=False)
+    supplier = Chem.SDMolSupplier(file_path)
     return _process_supplier(supplier, file_path)
 
 def _process_mol2(file_path):
@@ -59,7 +59,7 @@ def _process_mol2(file_path):
         mol2_data = f.read()
     mol2_blocks = mol2_data.split('@<TRIPOS>MOLECULE')
     supplier = (
-        Chem.MolFromMol2Block('@<TRIPOS>MOLECULE' + block, sanitize=False)
+        Chem.MolFromMol2Block('@<TRIPOS>MOLECULE' + block)
         for block in mol2_blocks[1:]
     )
     return _process_supplier(supplier, file_path)
@@ -269,8 +269,7 @@ class BAPredDataset(DGLDataset):
             if int( line[22:26] ) in select_residue[ line[21] ]:
                 total_lines += line
         
-        mol = Chem.MolFromPDBBlock( total_lines, sanitize=False )
-        #Chem.AssignAtomChiralTagsFromStructure(mol)
+        mol = Chem.MolFromPDBBlock( total_lines )
 
         return mol
 

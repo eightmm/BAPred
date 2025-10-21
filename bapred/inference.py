@@ -6,6 +6,31 @@ from dgl.dataloading import GraphDataLoader
 from bapred.data.data import BAPredDataset
 from bapred.model.model import PredictionPKD
 
+import torch
+import numpy as np
+import random
+
+# --- 재현성을 위한 설정 (아래 부분을 코드 상단에 추가) ---
+
+# 기본 시드 고정
+seed = 42
+torch.manual_seed(seed)
+np.random.seed(seed)
+random.seed(seed)
+
+# CUDA 연산 시 재현성 보장을 위한 설정
+if torch.cuda.is_available():
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed) # if use multi-GPU
+    
+    # cuDNN을 결정론적 모드로 설정
+    torch.backends.cudnn.deterministic = True
+    
+    # cuDNN의 benchmark 기능을 비활성화
+    # benchmark=True는 가장 빠른 알고리즘을 찾기 위해 여러번 실행해보는데, 
+    # 이는 비결정성을 유발할 수 있음
+    torch.backends.cudnn.benchmark = False
+
 def inference(
     protein_pdb: str, 
     ligand_file: str, 
