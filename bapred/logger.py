@@ -1,5 +1,5 @@
 """
-Logging configuration for BAPred
+Logging configuration for BA-Pred
 """
 import logging
 import sys

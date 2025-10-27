@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Setup script for BAPred
+Setup script for BA-Pred
 This file is kept for backward compatibility.
 Modern installations should use pyproject.toml
 """

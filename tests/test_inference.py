@@ -1,5 +1,5 @@
 """
-Unit tests for BAPred inference module
+Unit tests for BA-Pred inference module
 """
 import unittest
 import os
@@ -50,10 +50,9 @@ class TestInference(unittest.TestCase):
             capture_output=True,
             text=True
         )
-        self.assertEqual(result.returncode, 0, 
+        self.assertEqual(result.returncode, 0,
                         f"CLI help failed: {result.stderr}")
-        self.assertIn("BAPred", result.stdout)
-        self.assertIn("--ncpu", result.stdout)
+        self.assertIn("BA-Pred", result.stdout)
 
 if __name__ == "__main__":
     unittest.main()

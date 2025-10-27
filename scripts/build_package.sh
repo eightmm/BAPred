@@ -1,9 +1,9 @@
 #!/bin/bash
-# Build script for BAPred PyPI package
+# Build script for BA-Pred PyPI package
 
 set -e  # Exit on error
 
-echo "🔧 Building BAPred package..."
+echo "🔧 Building BA-Pred package..."
 
 # Clean previous builds
 echo "Cleaning previous builds..."

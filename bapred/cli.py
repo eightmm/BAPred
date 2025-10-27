@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Command-line interface for BAPred
+Command-line interface for BA-Pred
 """
 import sys
 import os

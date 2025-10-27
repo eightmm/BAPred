@@ -1,1 +1,1 @@
-# Test package for BAPred
+# Test package for BA-Pred

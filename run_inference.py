@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BAPred Inference Script
+BA-Pred Inference Script
 A convenient wrapper for running binding affinity prediction.
 """
 
@@ -20,7 +20,7 @@ def main():
     # Setup logger
     logger = setup_logger("bapred.cli")
     parser = argparse.ArgumentParser(
-        description='BAPred: Protein-ligand Binding Affinity Prediction',
+        description='BA-Pred: Protein-ligand Binding Affinity Prediction',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

@@ -1,6 +1,6 @@
 <div align="center">
 
-#BAPred
+# BA-Pred
 
 **Protein-Ligand Binding Affinity Prediction using Graph Neural Networks**
 
@@ -9,7 +9,7 @@
 [![DGL](https://img.shields.io/badge/DGL-2.4-green.svg)](https://www.dgl.ai/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![CASP16](https://img.shields.io/badge/CASP16-2nd%20Place-gold.svg)](https://predictioncenter.org/casp16/)
-[![GitHub stars](https://img.shields.io/github/stars/eightmm/BAPred.svg?style=social&label=Star)](https://github.com/eightmm/BAPred)
+[![GitHub stars](https://img.shields.io/github/stars/eightmm/BA-Pred.svg?style=social&label=Star)](https://github.com/eightmm/BA-Pred)
 
 *High-performance protein-ligand binding affinity prediction model - 2nd place in CASP16 ligand affinity challenge*
 
@@ -42,8 +42,8 @@ pip install bapred
 <summary><b>Option 2: Using Conda (Recommended for Development)</b></summary>
 
 ```bash
-git clone https://github.com/eightmm/BAPred.git
-cd BAPred
+git clone https://github.com/eightmm/BA-Pred.git
+cd BA-Pred
 conda env create -f env.yaml
 conda activate BAPred
 pip install -e .
@@ -55,8 +55,8 @@ pip install -e .
 <summary><b>Option 3: From Source</b></summary>
 
 ```bash
-git clone https://github.com/eightmm/BAPred.git
-cd BAPred
+git clone https://github.com/eightmm/BA-Pred.git
+cd BA-Pred
 pip install -r requirements.txt
 pip install -e .
 ```
@@ -113,7 +113,7 @@ inference(
 ## Project Structure
 
 ```
-BAPred/
+BA-Pred/
 ├── bapred/                 # Main package
 │   ├── data/               # Data processing modules
 │   │   ├── atom_feature.py    # Atomic feature extraction
@@ -152,22 +152,22 @@ This project is licensed under the **Apache License 2.0**. See the [LICENSE](LIC
 
 ## Citation
 
-If you use BAPred in your research, please cite:
+If you use BA-Pred in your research, please cite:
 
 ```bibtex
 @software{bapred2024,
-  title={BAPred: Protein-Ligand Binding Affinity Prediction using Graph Neural Networks},
+  title={BA-Pred: Protein-Ligand Binding Affinity Prediction using Graph Neural Networks},
   author={Jaemin Sim},
   year={2024},
-  url={https://github.com/eightmm/BAPred}
+  url={https://github.com/eightmm/BA-Pred}
 }
 ```
 
 ## Support
 
 - **Documentation**: Check this README and code comments
-- **Issues**: [GitHub Issues](https://github.com/eightmm/BAPred/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/eightmm/BAPred/discussions)
+- **Issues**: [GitHub Issues](https://github.com/eightmm/BA-Pred/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/eightmm/BA-Pred/discussions)
 
 ---
 
